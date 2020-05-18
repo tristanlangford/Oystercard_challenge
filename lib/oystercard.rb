@@ -5,6 +5,7 @@ attr_reader :balance, :journey
 
 LIMIT = 90
 MINIMAL_BALANCE = 1
+MINIMAL_FARE = 1
 
   def initialize
     @balance = 0
@@ -27,11 +28,11 @@ MINIMAL_BALANCE = 1
 
   def touch_in
     fail "Minimal balance: £#{MINIMAL_BALANCE}" if @balance < MINIMAL_BALANCE
-    
     @journey = true
   end
 
   def touch_out
+    @balance -= MINIMAL_FARE
     @journey = false
   end
 

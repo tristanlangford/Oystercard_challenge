@@ -5,6 +5,7 @@ describe Oystercard do
 
   LIMIT = 90
   MINIMAL_BALANCE = 1
+  MINIMAL_FARE = 1
 
   it 'can access the  default balance of 0' do
     expect(subject.balance).to eq(0)
@@ -43,5 +44,9 @@ describe Oystercard do
 
   it 'raises an error when touch in with less than minimal balance' do
     expect { subject.touch_in }.to raise_error("Minimal balance: £#{MINIMAL_BALANCE}")
+  end
+
+  it 'reduces balance by minimal fare when Touch_out' do
+    expect { subject.touch_out }.to change{ subject.balance }.by(-MINIMAL_FARE)
   end
 end
