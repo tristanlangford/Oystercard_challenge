@@ -4,6 +4,7 @@ attr_reader :balance, :journey
 
 
 LIMIT = 90
+MINIMAL_BALANCE = 1
 
   def initialize
     @balance = 0
@@ -12,6 +13,7 @@ LIMIT = 90
 
   def top_up(money)
     fail "£#{LIMIT} limit exceeded" if @balance + money > LIMIT
+
     @balance += money
   end
 
@@ -24,6 +26,8 @@ LIMIT = 90
   end
 
   def touch_in
+    fail "Minimal balance: £#{MINIMAL_BALANCE}" if @balance < MINIMAL_BALANCE
+    
     @journey = true
   end
 

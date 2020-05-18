@@ -4,6 +4,7 @@ describe Oystercard do
   subject { Oystercard.new }
 
   LIMIT = 90
+  MINIMAL_BALANCE = 1
 
   it 'can access the  default balance of 0' do
     expect(subject.balance).to eq(0)
@@ -28,13 +29,19 @@ describe Oystercard do
   end
 
   it 'updates the instance variable if touch_in' do
+    subject.top_up(1)
     subject.touch_in
     expect(subject).to be_journey
   end
 
   it 'updates the instance variable if touch_out' do
+    subject.top_up(1)
     subject.touch_in
     subject.touch_out
     expect(subject).to_not be_journey
+  end
+
+  it 'raises an error when touch in with less than minimal balance' do
+    expect { subject.touch_in }.to raise_error("Minimal balance: £#{MINIMAL_BALANCE}")
   end
 end
