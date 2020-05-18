@@ -22,4 +22,19 @@ describe Oystercard do
     subject.deduct(20)
     expect(subject.balance).to eq(-20)
   end
+
+  it 'should return false if not touched in yet' do
+    expect(subject.journey?).to be false
+  end
+
+  it 'updates the instance variable if touch_in' do
+    subject.touch_in
+    expect(subject).to be_journey
+  end
+
+  it 'updates the instance variable if touch_out' do
+    subject.touch_in
+    subject.touch_out
+    expect(subject).to_not be_journey
+  end
 end
